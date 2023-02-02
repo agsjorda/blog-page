@@ -5,7 +5,7 @@
 define('DB_HOST', 'phpmysql');
 define('DB_USER', 'root');
 define('DB_PASS', 'Glyness@2315'); //may need to set DB_PASS as 'root'
-define('DB_DATABASE', 'logins'); //make sure to set your database
+define('DB_DATABASE', 'blog_posts'); //make sure to set your database
 //connect to database host
 $connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
 //make sure connection is good or die

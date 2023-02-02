@@ -35,14 +35,14 @@ session_start();
             <label>email : <input type="text" name="email"></label><br>
             <label>password : <input type="password" name="password"></label><br>
             <label>Confirm Password : <input type="password" name="confirm_password"></label><br>
-            <input type="submit" value="register">
+            <input type="submit" id="register" value="register">
         </form>
         <h1>Login</h1>
         <form action="process.php" method="post">
             <input type="hidden" name="action" value="login">
             <label>email : <input type="text" name="email"></label><br>
             <label>password : <input type="password" name="password"></label><br>
-            <input type="submit" value="login">
+            <input type="submit" id="login" value="login">
         </form>
     </div>
 </body>
