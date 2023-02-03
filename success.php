@@ -1,4 +1,5 @@
 <?php
+    require_once("new-connection.php");
     session_start();
     if(!isset($_SESSION['logged_in'])) {
         session_destroy();
@@ -26,24 +27,54 @@
             </div>
         </header>
         <section>
-            <h1>Title</h1>
+            <h1>Blog Title</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit11px, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <form action="process.php" method="post"> 
-                <input type="hidden" name="action" value="review">
+                <input type="hidden" name="action" value="create_review">
                 <h2>Leave a review</h2>
                 <textarea type="text" name="message" placeholder="post a message" ></textarea>
                 <input type="submit" id="review-btn" name="submit" value="Post a review">
             </form>
-            <div class="posts">
-                <h2>Message from Harry Potter at  February 3 2023.</h2>
-                <p class="line"> Arthur You can do this trust the process and feel the force within you!!</p>
+            <?php
+                $reviews = fetch_all("SELECT reviews.*, users.first_name, users.last_name
+                                        FROM reviews LEFT JOIN users
+                                        ON reviews.user_id = users.id
+                                        ORDER BY id DESC
+                                    ");
+            
+            ?>
+            <?php foreach($reviews as $review) {
+            ?>
+                <div class="posts">
+                <h2>Review from <?= $review['first_name']?> <?= $review['last_name']?>  -  <?= date("F d, Y", strtotime($review['created_at']))?>.</h2>
+                <p class="line"> <?= $review['content']?></p>
+                <?php 
+                    $replies = fetch_all("
+                        SELECT replies.*, users.first_name, users.last_name
+                            FROM replies
+                            LEFT JOIN users ON users.id = replies.user_id
+                            WHERE replies.review_id = {$review['id']}")
+                ?>
+            <?php 
+                foreach($replies as $reply ) {
+            ?>
+                <h3>Replies from <?= $reply['first_name']?> <?= $reply['last_name']?>  -  <?= date("F d, Y", strtotime($reply['created_at']))?></h4>
+                <p><?= $reply['content']?></p>
+            <?php        
+                }
+            ?>
+                
                 <form action="process.php" method="post"> 
                     <input type="hidden" name="action" value="reply">
-                    <h4>Leave a reply</h4>
-                    <textarea type="text" name="message" placeholder="replies" ></textarea>
-                <input type="submit" class="reply-btn" name="submit" value="reply">
-            </form>
+                    <input type="hidden" name="message_id" value="<?= $review['id']?>">
+                    <label>Leave a reply<textarea type="text" name="message" placeholder="replies" ></textarea></label>
+                    <input type="submit" class="reply-btn" name="submit" value="reply">
+                </form>
             </div>
+            <?php
+            }
+            ?>
+            
         </section>
     </div>
 </body>

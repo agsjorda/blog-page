@@ -1,9 +1,26 @@
 <?php
+    session_start();
     require_once('validations.php');
     require_once('new-connection.php');
-    session_start();
+    
+    if(isset($_POST['action']) && $_POST['action'] == 'create_review') {
+        // --------------------ADD REVIEWS--------------------------
+        $query = "INSERT INTO reviews (user_id,content, created_at, updated_at)
+                VALUES ({$_SESSION['user_id']},'{$_POST['message']}', NOW(), NOW())";
+        run_mysql_query($query);
+        header('location: success.php');
         
-    if(isset($_POST['action']) && $_POST['action'] == 'register') {
+    }  else if(isset($_POST['action']) && $_POST['action'] == 'reply') {
+        // --------------------ADD REPLIES--------------------------
+    
+        $query = "INSERT INTO replies (user_id, review_id, content, created_at, updated_at)
+                VALUES ({$_SESSION['user_id']},{$_POST['message_id']}, 
+                '{$_POST['message']}', NOW(), NOW())";
+    
+        run_mysql_query($query);
+        header('location: success.php');
+    }
+    else if(isset($_POST['action']) && $_POST['action'] == 'register') {
         // call to function
         register_user($_POST); // use the Actual POST
     } else if (isset($_POST['action']) && $_POST['action'] == 'login') {
