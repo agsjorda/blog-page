@@ -4,9 +4,9 @@ session_start();
 function validateCellNumber($number) {
     if (strlen($number) == 11 && $number[0] == '0') {
         for ($i = 0; $i < 11; $i++) {
-        if (!is_numeric($number[$i])) {
-            return false;
-        }
+            if (!is_numeric($number[$i])) {
+                return false;
+            }
         }
         return true;
     } else {

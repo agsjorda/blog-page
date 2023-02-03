@@ -40,8 +40,8 @@ session_start();
         <h1>Login</h1>
         <form action="process.php" method="post">
             <input type="hidden" name="action" value="login">
-            <label>email : <input type="text" name="email"></label><br>
-            <label>password : <input type="password" name="password"></label><br>
+            <label>email : <input type="text" name="email" value="harry@hogwarts.com"></label><br>
+            <label>password : <input type="password" name="password" value="magic"></label><br>
             <input type="submit" id="login" value="login">
         </form>
     </div>

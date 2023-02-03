@@ -23,7 +23,7 @@
         validatePassword($post['password'], $post['confirm_password']);
         validateEmail($post['email']);
         
-        // ----------------end of calidation checks-------------//
+        // ----------------end of validation checks-------------//
         if(count($_SESSION['errors']) > 0) {    // if I have any errors at all!!
             header("location: index.php");
             die();

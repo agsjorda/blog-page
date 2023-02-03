@@ -55,16 +55,40 @@ section {
     text-align: start;
 }
 section form {
-    width: fit-content;
+    width: 800px;
     position: relative;
-    height: 150px;
+    height: 170px;
+}
+section h1 {
+    color: blueviolet;
+}
+section textarea {
+    width: 800px;
+    height: 70px;
 }
 #review-btn {
     position: absolute;
     top: 120px;
     right: 0;
+    border-radius: 5px;
     background-color: cornflowerblue;
     color: white;
     width: 100px;
-    height: 20px;
+    height: 30px;
+}
+.posts {
+    margin: 10px auto;
+    text-align: end;
+}
+.line {
+    padding-bottom: 10px;
+    border-bottom: 2px solid cornflowerblue;
+}
+.posts textarea{
+    width: 700px;
+    height: 70px;
+}
+.reply-btn {
+    background-color: cadetblue;
+    color: white;
 }
